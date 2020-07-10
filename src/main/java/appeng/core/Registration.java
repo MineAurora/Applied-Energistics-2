@@ -87,6 +87,7 @@ import appeng.client.render.tesr.SkyChestTESR;
 import appeng.container.AEBaseContainer;
 import appeng.container.ContainerOpener;
 import appeng.container.implementations.*;
+import appeng.core.api.client.ApiCellModelRegistry;
 import appeng.core.features.registries.P2PTunnelRegistry;
 import appeng.core.features.registries.PartModels;
 import appeng.core.features.registries.cell.BasicCellHandler;
@@ -161,7 +162,7 @@ final class Registration {
         SkyCompassModel.DEPENDENCIES.forEach(ModelLoader::addSpecialModel);
         ModelLoader.addSpecialModel(BiometricCardModel.MODEL_BASE);
         ModelLoader.addSpecialModel(MemoryCardModel.MODEL_BASE);
-        DriveModel.DEPENDENCIES.forEach(ModelLoader::addSpecialModel);
+        ApiCellModelRegistry.registerModels();
         ModelLoader.addSpecialModel(MolecularAssemblerRenderer.LIGHTS_MODEL);
 
         PartModels partModels = (PartModels) Api.INSTANCE.registries().partModels();
