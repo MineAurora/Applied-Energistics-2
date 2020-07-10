@@ -23,6 +23,7 @@
 
 package appeng.api;
 
+import appeng.api.crafting.ICraftingHelper;
 import appeng.api.definitions.IDefinitions;
 import appeng.api.features.IRegistryContainer;
 import appeng.api.networking.IGridHelper;
@@ -42,6 +43,11 @@ public interface IAppEngApi {
      * @return A helper for working with storage data types.
      */
     IStorageHelper storage();
+
+    /**
+     * @return A helper for working with crafting related tasks.
+     */
+    ICraftingHelper crafting();
 
     /**
      * @return A helper to create {@link IGridNode} and other grid related objects.

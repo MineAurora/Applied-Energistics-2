@@ -27,6 +27,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.items.IItemHandler;
 
+import appeng.api.AEApi;
 import appeng.api.config.SecurityPermissions;
 import appeng.api.implementations.ICraftingPatternItem;
 import appeng.api.networking.crafting.ICraftingPatternDetails;
@@ -108,8 +109,7 @@ public class PatternTerminalPart extends AbstractTerminalPart {
         if (inv == this.pattern && slot == 1) {
             final ItemStack is = this.pattern.getStackInSlot(1);
             if (!is.isEmpty() && is.getItem() instanceof ICraftingPatternItem) {
-                final ICraftingPatternItem pattern = (ICraftingPatternItem) is.getItem();
-                final ICraftingPatternDetails details = pattern.getPatternForItem(is,
+                final ICraftingPatternDetails details = AEApi.instance().crafting().getPattern(is,
                         this.getHost().getTile().getWorld());
                 if (details != null) {
                     this.setCraftingRecipe(details.isCraftable());

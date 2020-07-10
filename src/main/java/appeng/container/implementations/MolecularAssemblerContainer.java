@@ -27,6 +27,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandler;
 
+import appeng.api.AEApi;
 import appeng.api.config.RedstoneMode;
 import appeng.api.config.SecurityPermissions;
 import appeng.api.config.Settings;
@@ -79,8 +80,7 @@ public class MolecularAssemblerContainer extends UpgradeableContainer implements
 
         if (is.getItem() instanceof EncodedPatternItem) {
             final World w = this.getTileEntity().getWorld();
-            final EncodedPatternItem iep = (EncodedPatternItem) is.getItem();
-            final ICraftingPatternDetails ph = iep.getPatternForItem(is, w);
+            final ICraftingPatternDetails ph = AEApi.instance().crafting().getPattern(is, w);
             if (ph.isCraftable()) {
                 return ph.isValidItemForSlot(slotIndex, i, w);
             }
