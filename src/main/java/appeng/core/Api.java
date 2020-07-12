@@ -18,11 +18,12 @@
 
 package appeng.core;
 
+import appeng.api.AEAddon;
 import appeng.api.IAppEngApi;
+import appeng.api.client.IClientHelper;
 import appeng.api.features.IRegistryContainer;
 import appeng.api.networking.IGridHelper;
 import appeng.api.storage.IStorageHelper;
-import appeng.api.util.IClientHelper;
 import appeng.core.api.ApiClientHelper;
 import appeng.core.api.ApiGrid;
 import appeng.core.api.ApiPart;
@@ -31,7 +32,25 @@ import appeng.core.features.registries.PartModels;
 import appeng.core.features.registries.RegistryContainer;
 
 public final class Api implements IAppEngApi {
+
+    /**
+     * While permitting public access, directly using {@link Api#instance()} is not
+     * recommended except in very special cases.
+     */
     public static final Api INSTANCE = new Api();
+
+    /**
+     * Use primarily to access the API.
+     * 
+     * Using {@link IAppEngApi} intentionally to avoid using functionality not
+     * exposed by accident.
+     * 
+     * In some cases we might have to access the API before it is announced via
+     * {@link AEAddon}, otherwise we could just inject it into AE2 itself.
+     */
+    public static IAppEngApi instance() {
+        return INSTANCE;
+    }
 
     private final ApiPart partHelper;
 
@@ -48,7 +67,7 @@ public final class Api implements IAppEngApi {
         this.registryContainer = new RegistryContainer();
         this.partHelper = new ApiPart();
         this.definitions = new ApiDefinitions((PartModels) this.registryContainer.partModels());
-        this.client = new ApiClientHelper();
+        this.client = new ApiClientHelper(this.definitions);
     }
 
     public PartModels getPartModels() {

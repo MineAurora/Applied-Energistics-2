@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2020 AlgorithmX2
+ * Copyright (c) 2020 TeamAppliedEnergistics
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -21,22 +21,30 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package appeng.api.util;
+package appeng.api;
 
-import java.util.List;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
-import net.minecraft.util.text.ITextComponent;
+/**
+ * Every AE2 addon requiring access to {@link IAppEngApi}, needs to provide at
+ * least one class implementing this interface.
+ * 
+ * Further it requires the class to be annotated with {@link AEAddon}.
+ * 
+ */
+public interface IAEAddon {
 
-import appeng.api.storage.cells.ICellInventoryHandler;
-import appeng.api.storage.data.IAEStack;
-
-public interface IClientHelper {
     /**
-     * Add cell information to the provided list. Used for tooltip content.
-     *
-     * @param handler Cell handler.
-     * @param lines   List of lines to add to.
+     * This gets called once the API is successfully constructed and ready to be
+     * used.
+     * 
+     * For now this happens during {@link FMLCommonSetupEvent}.
+     * 
+     * Each addon is responsible to maintain a reference to {@link IAppEngApi} for
+     * future use. Otherwise there is no alternative to access it later.
+     * 
+     * @param api The API instance when ready.
      */
-    <T extends IAEStack<T>> void addCellInformation(ICellInventoryHandler<T> handler, List<ITextComponent> lines);
+    void onAPIAvailable(IAppEngApi api);
 
 }
