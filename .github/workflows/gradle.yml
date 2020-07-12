@@ -31,8 +31,8 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
-    - name: Download a Build Artifact
-      uses: actions/download-artifact@v2
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
       with:
         name: AppliedEnergistics2
         path: ./build/libs/*.jar
